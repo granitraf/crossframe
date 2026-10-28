@@ -1,0 +1,26 @@
+/* ==========================================================================
+   Agent cards: the white section the hero hands off to.
+   It is pulled up by one screen so it rises from below while the hero is
+   sticky. Each card's extra slide is scrubbed by --handoff (set by hero.js).
+   --cards-top (set by hero.js) places the cards just below the parked headline.
+   ========================================================================== */
+.agents{position:relative;z-index:5;margin-top:-100vh;margin-top:-100svh;min-height:100vh;min-height:100svh;
+  display:grid;align-content:start;padding:var(--cards-top,clamp(96px,14vh,160px)) var(--pad-x) clamp(64px,10vh,120px);color:var(--ink)}
+.agents-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,1.4vw,20px);margin:0;padding:0;list-style:none}
+
+.agent{--start:0;--cp:clamp(0, calc((var(--handoff) - var(--start)) / .55), 1);
+  display:flex;flex-direction:column;gap:14px;min-height:clamp(240px,30vh,340px);padding:clamp(24px,2.4vw,36px);
+  background:#f2f2ef;border-radius:20px;
+  opacity:var(--cp);transform:translateY(calc((1 - var(--cp)) * 96px))}
+.agent:nth-child(2){--start:.12}
+.agent:nth-child(3){--start:.24}
+.agent h3{margin:0;font-family:var(--font-display);font-weight:900;font-size:clamp(28px,1rem + 1.6vw,44px);line-height:1;letter-spacing:-.03em}
+.agent p{margin:auto 0 0;font-family:var(--font-text);font-weight:400;font-size:clamp(17px,.95rem + .3vw,20px);line-height:1.4;max-width:30ch}
+
+@media (prefers-reduced-motion:reduce){ .agent{transform:none} }
+@media (max-width:860px){
+  .agents-grid{grid-template-columns:1fr}
+  .agent{min-height:200px}
+  .agent:nth-child(2){--start:.06}
+  .agent:nth-child(3){--start:.12}
+}

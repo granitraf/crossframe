@@ -1,0 +1,16 @@
+# OS / tooling
+.DS_Store
+.playwright/
+node_modules/
+
+# raw video masters (the site serves the compressed copies in public/hero)
+TheBestOne*.mp4
+
+# Neue Haas Grotesk trial fonts: not licensed for redistribution.
+# The site falls back to Helvetica Neue until licensed files are added.
+assets/fonts/
+crossframelogowork/Haas Grotesk/
+crossframelogowork/*.zip
+
+# design-skill screenshots (regenerated on each inspect run)
+.taste-skill/inspect/
