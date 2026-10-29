@@ -16,6 +16,7 @@
   /* ---- Intro timings, in ms on the playhead (0 = video can play) ----------
      Change these to retime the intro. Each line fades in over FADE_IN, holds,
      and finishes fading out at its `out` time. */
+  var HANDOFF = 6800;               // the logo glides to the nav; the hero lead below is timed from here
   var T = {
     videoFade: 600,                 // video fades up from the poster
     line1: { in: 600,  out: 2300 }, // "You can't be everywhere."   words appear one by one from `in`
@@ -32,14 +33,14 @@
     GLOW_PEAK: 0.55,                // glow strength at its brightest (0..1); subtle by design
     LOAD_CURVE: 3.2,                // loading ring: how front-loaded it is (higher = faster start, longer slow finish)
     LOAD_FADE_OUT: 400,             // ...completes exactly at the handoff, then fades out
-    handoff: 8800,                  // 2.5 s after the tagline is fully in, the logo glides to the nav and the nav arrives
+    handoff: HANDOFF,               // just after the tagline's last word settles, the logo glides to the nav and the nav arrives
     glide: 900,                     // logo glide duration
-    leadIn: 9450,                   // hero headline words start easing in as the logo settles in the corner
+    leadIn: HANDOFF + 650,          // hero headline words start easing in as the logo settles in the corner
     LEAD_STAGGER: 90,               // ms between headline words
     LEAD_FADE: 520,
-    subIn: 10150,                   // then the subtitle,
-    ctaIn: 10400,                   // the Book a Call button,
-    factsIn: 10650,                 // and the facts row, one after another
+    subIn: HANDOFF + 1350,          // then the subtitle,
+    ctaIn: HANDOFF + 1600,          // the Book a Call button,
+    factsIn: HANDOFF + 1850,        // and the facts row, one after another
     FACT_STAGGER: 110,
     LEAD_RISE: 12,                  // px each part rises while easing in
     FADE_IN: 500,

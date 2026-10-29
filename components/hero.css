@@ -81,6 +81,13 @@
 .lead-title .w{display:inline-block}
 .lead-sub{margin:22px 0 0;max-width:46ch;font-family:var(--font-text);font-weight:400;font-size:clamp(17px,.9rem + .4vw,21px);
   line-height:1.4;text-wrap:balance;text-shadow:0 1px 14px rgba(0,0,0,.42)}
+/* the wordmark (justtext.png, trimmed and white) stands in for "Crossframe" in the subtitle. Sized so its
+   lowercase letters match the text's x-height (253 of the image's 362px ink height → .744em at ~.52em
+   x-height), and dropped by its 8px round-letter overshoot so it sits on the text's baseline. It stays on
+   the same line as "builds", so the wrap never strands it. */
+.lead-brand{white-space:nowrap}
+.wordmark{display:inline-block;height:.744em;width:auto;vertical-align:-.0165em;margin-right:.02em;
+  filter:drop-shadow(0 1px 6px rgba(0,0,0,.42))}
 .cta{pointer-events:auto;margin-top:32px;height:52px;padding:0 22px 0 26px;gap:10px;font-size:clamp(16px,1.1vw,18px)}
 .lead-facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(16px,2.6vw,44px);width:min(100%,940px);
   margin:clamp(36px,8vh,80px) 0 0;padding:0;list-style:none}
