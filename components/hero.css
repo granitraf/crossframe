@@ -76,8 +76,12 @@
 /* a soft darkening behind the text so it reads over bright sky and meadow; no hard edges */
 .hero-lead-scrim{position:absolute;inset:0;z-index:-1;
   background:radial-gradient(ellipse 66% 58% at 50% 50%,rgba(0,0,0,.30) 0%,rgba(0,0,0,.16) 50%,rgba(0,0,0,0) 85%)}
-.lead-title{margin:0;max-width:16ch;font-family:var(--font-display);font-weight:700;font-size:clamp(36px,1rem + 3.6vw,76px);
-  line-height:1.02;letter-spacing:-.025em;text-wrap:balance;text-shadow:0 2px 18px rgba(0,0,0,.34)}
+/* always two lines: a <br> after "another", no other wrapping. The longer line ("call, lead, or booking.")
+   is 9.64em wide in Helvetica Neue Bold (8.76em in Haas Display), so the size is capped at the screen
+   width over 9.8em: it shrinks on narrow phones rather than breaking onto a third line. */
+.lead-title{--fit:calc((100vw - 2 * var(--pad-x)) / 9.8);margin:0;font-family:var(--font-display);font-weight:700;
+  font-size:min(clamp(36px,1rem + 3.6vw,76px),var(--fit));white-space:nowrap;
+  line-height:1.02;letter-spacing:-.025em;text-shadow:0 2px 18px rgba(0,0,0,.34)}
 .lead-title .w{display:inline-block}
 .lead-sub{margin:22px 0 0;max-width:46ch;font-family:var(--font-text);font-weight:400;font-size:clamp(17px,.9rem + .4vw,21px);
   line-height:1.4;text-wrap:balance;text-shadow:0 1px 14px rgba(0,0,0,.42)}
@@ -99,7 +103,7 @@
 @media (max-width:760px){ .lead-facts{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:22px;width:min(100%,460px)} }
 @media (max-width:520px){
   .hero-lead{padding-top:calc(var(--pad-y) + 64px);padding-bottom:calc(92px + env(safe-area-inset-bottom))}
-  .lead-title{font-size:clamp(32px,8.6vw,40px)}
+  .lead-title{font-size:min(clamp(32px,8.6vw,40px),var(--fit))}
   .lead-sub{margin-top:16px;font-size:16px}
   .cta{margin-top:24px;height:48px}
   .lead-facts{margin-top:32px;gap:18px 14px}
