@@ -64,7 +64,7 @@
 .talk:hover svg{transform:translateX(2px)}
 .bar a:focus-visible{outline:2px solid #fff;outline-offset:4px;border-radius:6px}
 
-/* scroll cue: a downward chevron drawn like the Book a Call arrow (same stroke, round ends), with a soft
+/* scroll cue: a downward chevron drawn like the Let’s Talk arrow (same stroke, round ends), with a soft
    shadow and a small, slow bounce. It fades in as the logo lands (hero.js) and hides once the page scrolls. */
 .scroll-cue{position:fixed;left:50%;bottom:max(22px,calc(env(safe-area-inset-bottom) + 14px));z-index:12;translate:-50% 0;
   display:grid;place-items:center;min-width:64px;padding:8px 14px;border:0;background:none;color:#fff;cursor:pointer;
@@ -145,6 +145,6 @@ html.intro .logo img{opacity:0}
   .talk{height:40px;padding:0 13px 0 14px;gap:6px;font-size:15px}
   .logo img{height:27.5px}
 }
-/* "Book a Call" is longer than the old label: drop its chevron on narrow phones so the nav fits inside the pill */
-@media (max-width:420px){ .talk{padding:0 14px} .talk svg{display:none} }
 @media (max-width:380px){ .logo img{height:22.5px} .nav{gap:12px} }
+/* 320px phones (old iPhone SE): tighten the nav so Let's Talk stays inside the pill */
+@media (max-width:340px){ .bar{gap:4px} .logo img{height:19px} .nav{gap:9px} .nav a{font-size:14px} .talk{padding:0 10px 0 12px;gap:5px;font-size:14px} }

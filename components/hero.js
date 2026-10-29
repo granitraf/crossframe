@@ -97,7 +97,7 @@
     var h = hero.offsetHeight;
     var cut = Math.min(62, Math.max(30, ((copy.offsetTop - CUT_GAP) / h) * 100));
     root.style.setProperty('--cut', cut.toFixed(2) + '%');
-    // the nav pill: wraps the logo, links and Book a Call with an even gap all round
+    // the nav pill: wraps the logo, links and Let’s Talk with an even gap all round
     var bs = getComputedStyle(bar), padX = parseFloat(bs.paddingLeft), padY = parseFloat(bs.paddingTop);
     var inset = Math.max(PILL.minInset, padX * PILL.insetRatio);
     var rowH = bar.offsetHeight - padY;                                   // tallest item in the nav row
