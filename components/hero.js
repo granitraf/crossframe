@@ -34,6 +34,14 @@
     LOAD_FADE_OUT: 400,             // ...completes exactly at the handoff, then fades out
     handoff: 8800,                  // 2.5 s after the tagline is fully in, the logo glides to the nav and the nav arrives
     glide: 900,                     // logo glide duration
+    leadIn: 9450,                   // hero headline words start easing in as the logo settles in the corner
+    LEAD_STAGGER: 90,               // ms between headline words
+    LEAD_FADE: 520,
+    subIn: 10150,                   // then the subtitle,
+    ctaIn: 10400,                   // the Book a Call button,
+    factsIn: 10650,                 // and the facts row, one after another
+    FACT_STAGGER: 110,
+    LEAD_RISE: 12,                  // px each part rises while easing in
     FADE_IN: 500,
     FADE_OUT: 400,
     RISE: 20,                       // px the intro lines rise while fading in
@@ -67,7 +75,7 @@
     smoothing: 0.18      // 0..1, how quickly the drawn frame catches the playhead (lower = softer)
   };
 
-  var CUE_IN = T.handoff + 850;    // the 8-bit scroll arrow fades in as the logo lands in the corner
+  var CUE_IN = T.factsIn + 3 * T.FACT_STAGGER + 300;   // the scroll cue fades in last, once the facts row is in
   var END = CUE_IN + 450;          // ...and the intro ends once it is fully in; the white panel waits for scroll
 
   var root = document.documentElement;
@@ -80,8 +88,11 @@
   var el = {
     line1: $('.intro-line--1'), line2: $('.intro-line--2'), tagline: $('.intro-tagline'),
     vignette: $('.intro-vignette'), nav: $('.nav'), talk: $('.talk'), cueIn: $('.scroll-cue-in'),
-    load: $('.intro-load'), loadArc: $('.intro-load-arc')
+    load: $('.intro-load'), loadArc: $('.intro-load-arc'),
+    scrim: $('.hero-lead-scrim'), leadTitle: $('.lead-title'), leadSub: $('.lead-sub'), cta: $('.cta'),
+    facts: Array.prototype.slice.call(document.querySelectorAll('.lead-facts li'))
   };
+  var lead = $('.hero-lead');
   var cue = $('.scroll-cue');
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -133,15 +144,16 @@
       edge = P.b; gap = G.park;
       s = inOut(Math.min(1, (p - PILL.morphAt) / (PILL.formedAt - PILL.morphAt)));
     }
-    var f = function (n) { return n.toFixed(1); };
+    var f = function (n) { return n.toFixed(1); }, clip;
     if (s <= 0) {
       // video above the white edge only (the page's white shows below it)
-      media.style.clipPath = edge >= G.VH ? '' : 'inset(0 0 ' + f(Math.max(0, G.VH - edge)) + 'px 0)';
+      clip = edge >= G.VH ? '' : 'inset(0 0 ' + f(Math.max(0, G.VH - edge)) + 'px 0)';
     } else {
       // the strip above the nav narrows and rounds into the pill, which then stays fixed at the top
       var x = P.x * s, y = P.y * s;
-      media.style.clipPath = 'path("' + rr(+f(x), +f(y), +f(W - 2 * x), +f(P.b - y), +f(P.r * s)) + '")';
+      clip = 'path("' + rr(+f(x), +f(y), +f(W - 2 * x), +f(P.b - y), +f(P.r * s)) + '")';
     }
+    media.style.clipPath = lead.style.clipPath = clip;                     // the hero lead is cut by the same edge
     copy.style.transform = 'translateY(' + f(edge + gap - G.copyTop) + 'px)';
   }
   // stage 1 (reveal the white panel) takes REVEAL_SCROLL of a screen height; stage 2 (handoff) takes the rest of the track
@@ -157,6 +169,7 @@
     if (p !== lastP) { lastP = p; root.style.setProperty('--handoff', p); }
     drawPanel(r, p);
     cue.classList.toggle('gone', r > 0.08);                               // the arrow leaves once scrolling starts
+    lead.classList.toggle('gone', r >= 0.25);                             // fully faded by then (CSS); stop it taking clicks
   }
 
   /* ---- Scroll cue: click to glide to the cards with the pill fully formed - */
@@ -297,10 +310,19 @@
     // the white panel and headline only come in once the visitor scrolls.
     fadeIn(el.nav, t, H + 450, 600);
     fadeIn(el.talk, t, H + 520, 600);
+    // hero lead: its soft backdrop takes over from the intro vignette, then the headline word by word,
+    // the subtitle, the button and the facts, each easing up into place
+    fadeIn(el.scrim, t, H + 300, 900);
+    words(el.leadTitle, t, T.leadIn, T.LEAD_STAGGER, T.LEAD_FADE, T.LEAD_RISE, false);
+    fadeIn(el.leadSub, t, T.subIn, 600, T.LEAD_RISE);
+    fadeIn(el.cta, t, T.ctaIn, 600, T.LEAD_RISE);
+    el.cta.style.pointerEvents = t >= T.ctaIn + 300 ? 'auto' : 'none';
+    for (var i = 0; i < el.facts.length; i++) fadeIn(el.facts[i], t, T.factsIn + i * T.FACT_STAGGER, 600, T.LEAD_RISE);
     fadeIn(el.cueIn, t, CUE_IN, 450);
   }
 
-  var drawn = [video, logo, el.line1, el.line2, el.tagline, el.vignette, el.nav, el.talk, el.cueIn, el.load];
+  var drawn = [video, logo, el.line1, el.line2, el.tagline, el.vignette, el.nav, el.talk, el.cueIn, el.load,
+               el.scrim, el.leadSub, el.cta].concat(el.facts);
   function clearInline() { drawn.forEach(function (n) { n.style.opacity = ''; n.style.transform = ''; }); }
 
   /* ---- Playhead ----------------------------------------------------------- */

@@ -92,12 +92,29 @@
   </button>
 
 <main>
+  <!-- ===== HERO LEAD (components/hero.css + hero.js): on the video once the logo lands. A fixed layer clipped
+       with the video, so the rising white cuts through it too; it fades out as scrolling starts. ===== -->
+  <div class="hero-lead">
+    <div class="hero-lead-scrim" aria-hidden="true"></div>
+    <h1 class="lead-title"><span class="w">Never</span> <span class="w">miss</span> <span class="w">another</span> <span class="w">call,</span> <span class="w">lead,</span> <span class="w">or</span> <span class="w">booking.</span></h1>
+    <p class="lead-sub">Crossframe builds AI agents that answer your phone, book appointments, and follow up with every lead, 24/7. Set up and managed for you.</p>
+    <a class="cta" href="https://cal.com/crossframe/intro" target="_blank" rel="noopener">Book a Call
+      <svg viewBox="0 0 9 14" aria-hidden="true"><path d="M1.5 1.5 7 7l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+    <ul class="lead-facts">
+      <li><strong>24/7</strong><span>Your agents never clock out</span></li>
+      <li><strong>&lt; 60 sec</strong><span>Every new lead gets a reply in under a minute</span></li>
+      <li><strong>1 week</strong><span>From intro call to your first agent, live</span></li>
+      <li><strong>Your CRM</strong><span>Plugs into the tools you already use</span></li>
+    </ul>
+  </div>
+
   <!-- ===== HERO COPY: rides up on the white, parks under the pill, then scrolls with the page ===== -->
   <div class="hero-track">
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-copy">
         <div class="hero-copy-in">
-          <h1 id="hero-title">AI agents that answer calls, book appointments, and follow up with leads.</h1>
+          <h2 id="hero-title">AI agents that answer calls, book appointments, and follow up with leads.</h2>
           <p>Built and run for you. Nothing missed, nothing waiting. 24/7.</p>
         </div>
       </div>
